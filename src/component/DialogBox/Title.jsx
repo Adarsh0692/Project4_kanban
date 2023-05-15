@@ -28,7 +28,6 @@ const Title = () => {
           value={headingText}
           onChange={handleInputChange}
           onBlur={handleInputBlur}
-          autoFocus
         />
       ) : (
         <h2 onClick={handleHeadingClick}>{headingText}</h2>

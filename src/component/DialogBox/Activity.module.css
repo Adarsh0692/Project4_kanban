@@ -5,6 +5,7 @@
 .reactQuill{
     width: 50vw;
     height: 10vh;
+    margin-left: 2.7rem;
 }
 
 .textAreaButton{
@@ -42,4 +43,35 @@
 
 .logo{
     font-size: 1.7rem;
+}
+
+.comments{
+    width: 50vw;
+    height: 6vh;
+    border-radius: .5rem;
+    display: flex;
+    padding-left: 1rem;
+    align-items: center;
+    box-shadow: var(--ds-shadow-raised, 0 1px 2px -1px rgba(9, 30, 66, 0.25), 0 0 0 1px var(--ds-border, rgba(9, 30, 66, 0.08)));
+    cursor: pointer;
+    margin-left: 2.7rem;
+    margin-top: 1.5rem;
+}
+
+.time{
+    margin-left: 2.7rem;
+    margin-top: .6rem;
+}
+
+.editAndDelete{
+    display: flex;
+    gap: .6rem;
+    width: 50vw;
+    margin-top: .8rem;
+    margin-left: 2.7rem;
+    text-decoration: underline;
+}
+
+.editAndDelete p{
+    cursor: pointer;
 }
