@@ -12,7 +12,6 @@ export default function Activity() {
   const [text, setText] = useState("")
   const [arr, setArr] = useState([])
   const [isEditing, setIsEditing] = useState(false);
-  // const [commentsVisible, setCommentsVisible] = useState(true)
   const [showAndHideDetailes, setshowAndHideDetailes] = useState("Hide detailes")
 
   function handleClick(){
@@ -20,8 +19,12 @@ export default function Activity() {
   }
 
   function handleSaveClick(){
+    if(text){
     let time = new Date().toLocaleDateString()
     setArr([...arr,{text:text,time:time}])
+    }else{
+      return alert("can not be empty")
+    }
     setText("")
     setIsEditing(false)
   }
@@ -75,8 +78,7 @@ export default function Activity() {
         return <div key={index} className={style.commentsEditAndDelete}>
               {showAndHideDetailes === "Hide detailes" ? <><div className={style.comments}>{removePTag(ele.text)}</div>
                <div className={style.time}>{ele.time}</div>
-               <div className={style.editAndDelete}>
-               <p onClick={() => setIsEditing(true)}>Edit</p>
+              <div className={style.editAndDelete}>
                <p onClick={() => handleClickDelete(index)}>Delete</p>
                </div></>:null}
                </div>

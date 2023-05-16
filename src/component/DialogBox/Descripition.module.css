@@ -33,4 +33,6 @@
 
 .content{
     margin-left: 2.7rem;
+    width: 50vw;
+    word-break: break-all;
 }
