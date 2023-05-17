@@ -1,4 +1,4 @@
-import { useState,useRef } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import style from "./Descripition.module.css"
@@ -7,14 +7,24 @@ import { Button } from '@mui/material';
 import DOMPurify from 'dompurify';
 
 function Description(){
+  const contentData = JSON.parse(localStorage.getItem("description")) || ""
   const [isEditing, setIsEditing] = useState(false);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(contentData);
   const [isEditBtnHide, setIsEditBtnHide] = useState(false)
   const editorRef = useRef(null);
+
+
+  useEffect(() => {
+    if(contentData){
+      setIsEditBtnHide(true)
+    }
+  },[contentData])
+
 
   function handleClick(){
     setIsEditing(true);
   };
+  
 
   function handleSaveClick(){
     if(content){
@@ -28,7 +38,7 @@ function Description(){
   function handleCancleClick(){
     setIsEditing(false)
     setIsEditBtnHide(false)
-
+    setContent("")
   }
 
   // function removePTag(html){
@@ -53,6 +63,9 @@ function Description(){
       editor.focus();
     }
   };
+
+  localStorage.setItem('description', JSON.stringify(content));
+
 
   return (
     <>
