@@ -5,6 +5,7 @@ import style from "./DashBoard.module.css";
 import { useDispatch } from "react-redux";
 import { addList, addTask } from "../store/ListSlice";
 import { nanoid } from "nanoid";
+import { ToastContainer, toast } from "react-toastify";
 
 
 export default function AddNew({ type, listId }) {
@@ -24,6 +25,8 @@ export default function AddNew({ type, listId }) {
     } else
       if (input) {
         dispatch(addList({ id: nanoid(6), title: input }))
+      }else{
+        toast.warning('can not be empty!')
       }
     setInput('')
   }
@@ -38,7 +41,7 @@ export default function AddNew({ type, listId }) {
 
   return (
     <div >
-
+ 
       {isFormVisible ? (
         <Button
           onClick={() => setIsFormVisible(false)}

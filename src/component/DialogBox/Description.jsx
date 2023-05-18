@@ -5,6 +5,7 @@ import style from "./Descripition.module.css"
 import { HiMenuAlt2 } from 'react-icons/hi';
 import { Button } from '@mui/material';
 import DOMPurify from 'dompurify';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Description(){
   const contentData = JSON.parse(localStorage.getItem("description")) || ""
@@ -29,8 +30,9 @@ function Description(){
   function handleSaveClick(){
     if(content){
     setIsEditBtnHide(true)
-    }else{
-      return alert("can not be empty")
+    }else {
+      toast.warning('can not be empty')
+      
     }
     setIsEditing(false)
   }
@@ -69,7 +71,9 @@ function Description(){
 
   return (
     <>
+   
     <div className={style.logoH1}>
+    <ToastContainer position="top-center" autoClose='2000' />
     <div><HiMenuAlt2 className={style.logo}/></div>
     <h2>Description</h2>
     {isEditBtnHide && <Button sx={{

@@ -132,10 +132,7 @@ export default function DashBoard({ selectedImage }) {
                     item.task.map((task) => (
                       <div key={task.id} className={style.card} draggable >
                         <Card cardData={task} handleDeleteTask={()=>handleDeleteTask(task)}/>
-                        {/* <div className={style.edIcon}>
-                        <span> <EditIcon sx={{fontSize:'15px',cursor:'pointer'}} onClick={()=>handleEditTask(task)}/></span>
-                       <p><DeleteIcon sx={{fontSize:'15px', cursor:'pointer'}} onClick={()=>handleDeleteTask(task)}/></p>
-                       </div> */}
+                       
                       </div>
                     ))}
                 </div>

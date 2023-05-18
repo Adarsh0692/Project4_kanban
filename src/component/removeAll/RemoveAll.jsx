@@ -41,7 +41,7 @@ const RemoveAll = () => {
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">
-            {"Do You want to delete all the list ?"}
+            {"Do you want to clear all the lists ?"}
           </DialogTitle>
           <DialogActions>
             <Button

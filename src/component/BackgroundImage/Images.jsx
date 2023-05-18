@@ -6,7 +6,7 @@ const Images = ({ handleSelectImage }) => {
 const images = [
     {
         id : 1 ,
-        img : "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg"
+        img : "https://e0.pxfuel.com/wallpapers/356/696/desktop-wallpaper-plain-background-awesome-black-windows-10.jpg"
     },
     {
         id : 2 ,
@@ -50,8 +50,32 @@ const images = [
     },
     {
         id : 12 ,
-        img : 'https://wallpaperset.com/w/full/c/1/b/416786.jpg'
-    }
+        img : 'https://images.pexels.com/photos/909907/pexels-photo-909907.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
+    {
+        id : 13 ,
+        img : 'https://images.pexels.com/photos/1379636/pexels-photo-1379636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
+    {
+        id : 14 ,
+        img : 'https://images.pexels.com/photos/1174122/pexels-photo-1174122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
+    {
+        id : 15 ,
+        img : 'https://images.pexels.com/photos/3183132/pexels-photo-3183132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
+    {
+        id : 16 ,
+        img : 'https://images.pexels.com/photos/1191710/pexels-photo-1191710.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
+    {
+        id : 17 ,
+        img : 'https://images.pexels.com/photos/1784578/pexels-photo-1784578.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
+    {
+        id : 18 ,
+        img : 'https://images.pexels.com/photos/2393835/pexels-photo-2393835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    },
 ]
 
 const handleImageClick = (image) => {

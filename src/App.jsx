@@ -11,11 +11,13 @@ import { useState } from 'react'
 
 function App() {
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const selectImage = JSON.parse(localStorage.getItem('image')) || ''
+  const [selectedImage, setSelectedImage] = useState(selectImage);
   const navigate = useNavigate();
 
   const handleSelectImage = (image) => {
     setSelectedImage(image.img);
+    localStorage.setItem('image', JSON.stringify(image.img))
     navigate('/');
   };
 // const persistor = persistStore(store)

@@ -1,7 +1,6 @@
 .reactQuill{
-    width: 50vw;
-    height: 30vh;
-    margin-left: 2.7rem;
+    /* width: 50vw; */
+    height: 20vh;
 }
 
 .logoH1{
@@ -17,7 +16,7 @@
 .DescriptionDiv{
     padding: 1rem;
     border-radius: .5rem;
-    width: 50vw;
+    /* width: 50vw; */
     height: 10vh;
     background-color: var(--ds-background-neutral,#091e420a);
     font-size: 18px;
