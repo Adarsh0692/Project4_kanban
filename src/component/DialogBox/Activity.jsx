@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { RxActivityLog } from 'react-icons/rx';
-import DOMPurify from 'dompurify';
+// import DOMPurify from 'dompurify';
 import Avatar from '@mui/material/Avatar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
@@ -52,24 +52,63 @@ export default function Activity() {
     setshowAndHideDetailes(result)
   }
 
-  const handleChange = (value) => {
-    const sanitizedHTML = DOMPurify.sanitize(value, {
-      ALLOWED_TAGS: [], // Remove all tags except the ones specified
-      KEEP_CONTENT: true, // Keep tag contents
-    });
+  // const handleChange = (value) => {
+  //   const sanitizedHTML = DOMPurify.sanitize(value, {
+  //     ALLOWED_TAGS: [], // Remove all tags except the ones specified
+  //     KEEP_CONTENT: true, // Keep tag contents
+  //   });
 
-    setText(sanitizedHTML);
-    setCursorToEnd(); // Set the cursor position to the end
+  //   setText(sanitizedHTML);
+  //   setCursorToEnd(); // Set the cursor position to the end
+  // };
+
+  // const setCursorToEnd = () => {
+  //   if (editorRef.current) {
+  //     const editor = editorRef.current.getEditor();
+  //     const length = editor.getLength();
+  //     editor.setSelection(length, length);
+  //     editor.focus();
+  //   }
+  // };
+
+  const handleTextChange = (value) => {
+    setText(value);
   };
 
-  const setCursorToEnd = () => {
-    if (editorRef.current) {
-      const editor = editorRef.current.getEditor();
-      const length = editor.getLength();
-      editor.setSelection(length, length);
-      editor.focus();
-    }
+  const modules = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'], // Basic formatting buttons
+        ['link', 'image'], // Additional buttons
+      ],
+    },
+    keyboard: {
+      bindings: {
+        // Allow the entry of multiple consecutive spaces
+        space: {
+          key: 32,
+          handler: function () {
+            const range = this.quill.getSelection();
+            const currentText = this.quill.getText(range.index - 1, 1);
+            if (currentText === ' ') {
+              this.quill.insertText(range.index, ' ');
+              this.quill.setSelection(range.index + 1);
+            } else {
+              return true;
+            }
+          },
+        },
+      },
+    },
   };
+
+  // const handleTextChange = (content, delta, source, editor) => {
+  //   // Remove unwanted tags from the content
+  //   const sanitizedContent = content.replace(/<[^>]*>/g, '');
+
+  //   // Update the editor's content without the unwanted tags
+  //   editor.setContents(editor.clipboard.convert(sanitizedContent));
+  // };
 
   localStorage.setItem("commentData", JSON.stringify(arr))
 
@@ -92,7 +131,7 @@ export default function Activity() {
       </div>
       {isEditing ? (
         <div className={style.textAreaButton}>
-          <ReactQuill ref={editorRef} className={style.reactQuill} value={text} onChange={handleChange} />
+          <ReactQuill modules={modules} className={style.reactQuill} value={text} onChange={handleTextChange} />
           <Button variant='contained' onClick={handleSaveClick} sx={{
             marginTop: "2.5rem",
             width: "5rem",
