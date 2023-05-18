@@ -1,0 +1,22 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+
+.card:hover{
+  /* transform: scale(1.01); */
+  background-color: aliceblue;
+  color: black;
+}
+.card span{
+ 
+  /* color: #f9f3f3; */
+  visibility: hidden;
+}
+.card span:hover{
+  color: gray;
+  visibility: visible;
+}

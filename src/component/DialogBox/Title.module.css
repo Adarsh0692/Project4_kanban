@@ -6,7 +6,7 @@
 }
 
 .icon{
-    font-size: 1.7rem;
+    font-size: 1.3rem;
 }
 
 .titleListName{
@@ -16,9 +16,20 @@
 
 .iconH2{
     display: flex;
+    align-items: center;
     gap: 1rem;
 }
 
 .p{
     padding-left: 2.8rem;
+}
+
+.cross{
+    position: absolute !important;
+    right: 20px !important;
+    margin-right: auto !important;
+    /* border: 2px red solid !important; */
+    display: flex;
+    align-items: center;
+    background: round;
 }

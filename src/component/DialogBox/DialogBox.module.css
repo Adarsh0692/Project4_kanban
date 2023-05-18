@@ -1,5 +1,5 @@
 .mainContainer{
-    border: 2px solid;
+    /* border: 2px solid; */
     margin-top: 1rem;
     width: 60vw;
     min-height: 100vh;
@@ -7,6 +7,9 @@
     flex-direction: column;
     gap: 2rem;
     padding: 1.2rem;
-    border-radius: .7rem;
-    background-color: #0000;;
+    /* border-radius: .7rem; */
+    /* background-color: #0000;; */
+}
+.decription{
+    margin: 2rem 0;
 }

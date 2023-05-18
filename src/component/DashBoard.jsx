@@ -1,74 +1,89 @@
-import React, { useState } from 'react'
-import AddList from './AddList'
-import { addList } from '../store/ListSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import style from './DashBoard.module.css'
-import Button from '@mui/material/Button';
-import Navbar from './header/Navbar';
-
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import React, { useState } from "react";
+import { deleteList, deleteTask } from "../store/ListSlice";
+import { useDispatch, useSelector } from "react-redux";
+import EditIcon from '@mui/icons-material/Edit';
+import style from "./DashBoard.module.css";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Navbar from "./header/Navbar";
+import AddNew from "./AddNew";
+import Card from "./AddACard/Card";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { DragDropContext, Draggable,Droppable } from "react-beautiful-dnd";
 
 
 export default function DashBoard() {
-  const list = useSelector((state) => state.ListSlice.list)
-  const [input, setInput] = useState('')
-    // const [list, setList] = useState(lists)
-    const [addBtnHide, setAddBtnHide] = useState(true)
-    const dispatch = useDispatch()
+  const [isHover, setIsHover] = useState(true)
+  const [items , setItems] = useState([])
+  const list = useSelector((state) => state.ListSlice.list);
+
+  const dispatch = useDispatch();
+
+  function handleListDelete(item) {
+    dispatch(deleteList(item.id));
+    toast.success(`List ${item.title} Deleted successfully.`);
     
-   
-    function handleCross(){
-      setAddBtnHide(true)
-    }
-    function handleListInput(e){
-      setInput(e.target.value)
-      
-    }
-    function handleAddList(){
-      if(input){
-      // setList([...list, input])
-       dispatch(addList({id: Math.random(), title: input}))
-      setInput('')
-      // setList()
+  }
 
-      }
-      // console.log(list);
-    }
+  function handleDeleteTask(task){
+    const listName = list.filter((item) => item.id === task.listId)
+     dispatch(deleteTask(task))
+     toast.success(`Task ${task.title} from list ${listName[0].title} Deleted successfully.`);
+  }
 
-    // function handleListDelete(lists){
-    //   const deleted = list.filter(item => item.title !== lists.title)
-    //   setList(deleted)
-    //   // alert('hello')
-    //   console.log(deleted);
-    // }
+  const onDragEnd = (result) => {
+    if(!result.destination){
+      return;
+    }
+    const reorderedItems = reorder(
+      items,
+      result.source.index,
+      result.destination.index
+    );
+    console.log(reorder)
+  }
 
   return (
     <div className={style.dash_div}>
-        <Navbar/>
-      <h1>DashBoard</h1>
-      
+      <Navbar />
+      <ToastContainer position="top-center" autoClose='2000' />
+     <DragDropContext onDragEnd={onDragEnd}>
       <div className={style.dash_containor}>
-      <div className={style.list_container}>
-        {
-          list.map((list,index) => (
-            <div key={index} className={style.list_card} >
-              <div className={style.listName}>
-              {list.title} <span><MoreHorizIcon onClick={() =>handleListDelete(list)}/></span>
-              </div>
-              <div className={style.cardBtn}>
-                <Button sx={{width: '10vw', textTransform:'inherit', ":hover":{backgroundColor:'lightgray'}}} variant="text">+ Add a card</Button>
-              </div>
-             
-            </div>
-          ))
-        }
-      </div>
-      {addBtnHide? <Button variant="text" onClick={()=> setAddBtnHide(false)} className={style.addbtn}>+ Add a list</Button> : (
-        <AddList handleCross={handleCross} input={input} handleListInput={handleListInput} handleAddList={handleAddList}/>
-      )}
-      </div>
-    </div>
-  )
-}
+        <div className={style.list_container}>
+          {list.map((item) => (
+            <div key={item.id} className={style.cardBox}>
+              <div className={style.list_card}>
+                <div className={style.listName} 
+                // onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}
+                >
 
+                  <span>{item.title}</span>
+                {isHover && <span onClick={() => handleListDelete(item)}>
+                  <DeleteIcon sx={{fontSize:'20px', cursor:'pointer'}} />
+                </span>}
+                </div>
+                <div>
+                  {item.task &&
+                    item.task.map((task) => (
+                      <div key={task.id} className={style.card} >
+                        <Card cardData={task} />
+                        {/* <span> <EditIcon sx={{fontSize:'15px',cursor:'pointer'}}/></span> */}
+                       <p><DeleteIcon sx={{fontSize:'15px', cursor:'pointer'}} onClick={()=>handleDeleteTask(task)}/></p>
+                      </div>
+                    ))}
+                </div>
+                <div className={style.cardBtn}>
+                
+                  <AddNew type="card" listId={item.id} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <AddNew />
+      </div>
+      </DragDropContext>
+    </div>
+  );
+}

@@ -9,6 +9,7 @@ A Kanban Board is usually made of 3 columns - TODO, InProgress & Done. In each c
 * Material UI
 * reactjs/toolkit
 * react-redux
+* nanoid
 # Installing
 * npm create vite react app 
 # Authors

@@ -2,16 +2,10 @@
     margin-top: 1rem;
 }
 
-.timeAndComment {
-    display: flex;
-
-}
-
-.reactQuill {
+/* .reactQuill{
     width: 50vw;
     height: 10vh;
-    margin-left: 2.7rem;
-}
+} */
 
 .textAreaButton {
     display: flex;
@@ -20,8 +14,8 @@
     gap: 2rem;
 }
 
-.activityDiv {
-    width: 50vw;
+.activityDiv{
+    /* width: 50vw; */
     height: 6vh;
     border-radius: .5rem;
     display: flex;
@@ -32,8 +26,8 @@
     /* margin-left: 1rem; */
 }
 
-.iconH2Button {
-    width: 53vw;
+.iconH2Button{
+    /* width: 53vw; */
     display: flex;
     align-items: center;
     justify-content: space-between;
