@@ -1,10 +1,10 @@
-import { useState,useRef, useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import ReactQuill from "react-quill";
+import Parser from 'html-react-parser';
 import 'react-quill/dist/quill.snow.css';
 import style from "./Descripition.module.css"
 import { HiMenuAlt2 } from 'react-icons/hi';
 import { Button } from '@mui/material';
-import DOMPurify from 'dompurify';
 import { ToastContainer, toast } from 'react-toastify';
 
 function Description(){
@@ -12,8 +12,6 @@ function Description(){
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(contentData);
   const [isEditBtnHide, setIsEditBtnHide] = useState(false)
-  const editorRef = useRef(null);
-
 
   useEffect(() => {
     if(contentData){
@@ -43,27 +41,13 @@ function Description(){
     setContent("")
   }
 
-  // function removePTag(html){
-  //   return html.replace(/^<p>/, '').replace(/<\/p>$/, '');
-  // };
-
-  const handleChange = (value) => {
-    const sanitizedHTML = DOMPurify.sanitize(value, {
-      ALLOWED_TAGS: [], // Remove all tags except the ones specified
-      KEEP_CONTENT: true, // Keep tag contents
-    });
-
-    setContent(sanitizedHTML);
-    setCursorToEnd(); // Set the cursor position to the end
+  const handleContentChange = (value) => {
+    setContent(value);
   };
 
-  const setCursorToEnd = () => {
-    if (editorRef.current) {
-      const editor = editorRef.current.getEditor();
-      const length = editor.getLength();
-      editor.setSelection(length, length);
-      editor.focus();
-    }
+  const getTextFromHTML = (html) => {
+    const parsedHtml = Parser(html);
+    return parsedHtml;
   };
 
   localStorage.setItem('description', JSON.stringify(content));
@@ -71,7 +55,6 @@ function Description(){
 
   return (
     <>
-   
     <div className={style.logoH1}>
     <ToastContainer position="top-center" autoClose='2000' />
     <div><HiMenuAlt2 className={style.logo}/></div>
@@ -85,7 +68,7 @@ function Description(){
     <div>
       {isEditing ? 
       <div className={style.textAreaButtons}>
-      <ReactQuill ref={editorRef} value={content} onChange={handleChange} className={style.reactQuill}/>
+      <ReactQuill value={content} onChange={handleContentChange} className={style.reactQuill}/>
       <div>
       <Button 
       variant="contained" 
@@ -110,7 +93,7 @@ function Description(){
       :
       <>
       {!isEditBtnHide && <div onClick={handleClick} className={style.DescriptionDiv}>Add a more detailed descripition...</div>}
-      <div className={style.content}>{content}</div>
+      <div className={style.content}>{getTextFromHTML(content)}</div>
       </>
       }
     </div>

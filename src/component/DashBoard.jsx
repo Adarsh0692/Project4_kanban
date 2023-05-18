@@ -12,9 +12,6 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 
 
-
-
-
 export default function DashBoard({ selectedImage }) {
   const [isHover, setIsHover] = useState(true)
   const [editingListId, setEditingListId] = useState(null);
