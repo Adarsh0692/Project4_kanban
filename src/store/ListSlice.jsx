@@ -16,8 +16,9 @@ const ListSlice = createSlice({
       // console.log("delete",action.payload);
     },
     
-    clearAll : (state, action) =>{
+    clearAll : (state) =>{
        state.list = []
+       console.log(state.list)
     //    state.task = []
     },
 

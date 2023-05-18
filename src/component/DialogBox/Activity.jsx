@@ -1,17 +1,13 @@
 import React from 'react'
 import style from "./Activity.module.css"
 import { useState, useRef } from 'react'
-import { useState, useRef } from 'react'
 import { Button } from '@mui/material'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { RxActivityLog } from 'react-icons/rx';
-// import DOMPurify from 'dompurify';
-import Avatar from '@mui/material/Avatar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DOMPurify from 'dompurify';
 import Avatar from '@mui/material/Avatar';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
 
 
