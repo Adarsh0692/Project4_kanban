@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MdSubtitles } from 'react-icons/md';
-import style from "./Title.module.css"
+import style from "./Title.module.css";
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
+import { editTask } from '../../store/ListSlice';
+import { useDispatch } from 'react-redux';
 
-const Title = () => {
+const Title = ({title,listName,cardData}) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [headingText, setHeadingText] = useState('Editable Heading');
+  const [titleName, setTitleName] = useState(title)
+  const textRef = useRef(null)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  
 
   const handleHeadingClick = () => {
     setIsEditing(true);
   };
 
-  const handleInputChange = (e) => {
-    setHeadingText(e.target.value);
-  };
+  
 
-  const handleInputBlur = () => {
+  const handleInputBlur = (cardData) => {
+    const updated = (textRef.current.value)
+    dispatch(editTask({updated,cardData}))
+    setTitleName(updated)
     setIsEditing(false);
   };
 
@@ -22,24 +31,32 @@ const Title = () => {
     <div className={style.mainContainer}>
       <div className={style.iconH2}>
       <div><MdSubtitles className={style.icon}/></div>
+      <div>
+
+     
       {isEditing ? (
+        <form>
         <input
           type="text"
-          value={headingText}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
+          defaultValue={titleName}
+          ref={textRef}
+          onBlur={() =>handleInputBlur(cardData)}
+          autoFocus
         />
+        </form>
       ) : (
-        <h2 onClick={handleHeadingClick}>{headingText}</h2>
+        <h2 onClick={handleHeadingClick}>{titleName}</h2>
       )}
+       </div>
+       <div className={style.cross}>
+         <CloseIcon onClick={() => navigate('/')}/>
+       </div>
       </div>
       <div className={style.p}>
-      <p>In list</p>
+      <p>In list <span className={style.titleName}>{listName}</span> </p>
       </div>
     </div>
   );
 };
 
 export default Title; 
-
-
