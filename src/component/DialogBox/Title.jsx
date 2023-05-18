@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MdSubtitles } from 'react-icons/md';
 import style from "./Title.module.css";
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { editTask } from '../../store/ListSlice';
+import { useDispatch } from 'react-redux';
 
-const Title = ({title,listName}) => {
+const Title = ({title,listName,cardData}) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [headingText, setHeadingText] = useState(title);
+  const [titleName, setTitleName] = useState(title)
+  const textRef = useRef(null)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   
 
   const handleHeadingClick = () => {
     setIsEditing(true);
   };
 
-  const handleInputChange = (e) => {
-    setHeadingText(e.target.value);
-  };
+  
 
-  const handleInputBlur = () => {
+  const handleInputBlur = (cardData) => {
+    const updated = (textRef.current.value)
+    dispatch(editTask({updated,cardData}))
+    setTitleName(updated)
     setIsEditing(false);
   };
-// console.log(list);
-// console.log(title);
+
   return (
     <div className={style.mainContainer}>
       <div className={style.iconH2}>
@@ -32,14 +35,17 @@ const Title = ({title,listName}) => {
 
      
       {isEditing ? (
+        <form>
         <input
           type="text"
-          value={headingText}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
+          defaultValue={titleName}
+          ref={textRef}
+          onBlur={() =>handleInputBlur(cardData)}
+          autoFocus
         />
+        </form>
       ) : (
-        <h3 onClick={handleHeadingClick}>{headingText}</h3>
+        <h2 onClick={handleHeadingClick}>{titleName}</h2>
       )}
        </div>
        <div className={style.cross}>
@@ -47,7 +53,7 @@ const Title = ({title,listName}) => {
        </div>
       </div>
       <div className={style.p}>
-      <span>In list {listName}</span>
+      <p>In list <span className={style.titleName}>{listName}</span> </p>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState,useRef, useEffect } from 'react';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import style from "./Description.module.css"
+import style from "./Descripition.module.css"
 import { HiMenuAlt2 } from 'react-icons/hi';
 import { Button } from '@mui/material';
 import DOMPurify from 'dompurify';
@@ -115,3 +115,4 @@ function Description(){
 };
 
 export default Description;
+

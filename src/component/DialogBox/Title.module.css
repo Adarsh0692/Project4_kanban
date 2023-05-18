@@ -33,3 +33,6 @@
     align-items: center;
     background: round;
 }
+.titleName{
+    text-decoration: underline;
+}

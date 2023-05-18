@@ -17,10 +17,10 @@ const styles = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
-  height: 600,
+  width: 800,
+  height: 700,
   bgcolor: 'background.paper',
-//   border: '2px solid #000',
+  // border: '2px solid #000',
   boxShadow: 24,
   p: 2,
   overflow: 'scroll'
@@ -32,7 +32,8 @@ function DialogBox() {
    const navigate = useNavigate()
    const list = useSelector((state) => state.ListSlice.list)
    const listName = list.find((item) => item.id === location.state.card.listId)
-//    console.log(listName.title);
+   
+  //  console.log(cardData);
     const handleClose = () => {
       setOpen(false)
       navigate('/')
@@ -50,7 +51,7 @@ function DialogBox() {
         <Box sx={styles}>
           <Typography id="modal-modal-description" sx={{ mt: 0 }}>
          <div>
-         <Title title ={location.state.card.title} listName={listName.title}/>
+         <Title title ={location.state.card.title} listName={listName.title} cardData = {listName.task[0]}/>
          </div>
      <div className={style.decription}>
      <Description/>

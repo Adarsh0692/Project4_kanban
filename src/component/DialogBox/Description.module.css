@@ -16,11 +16,12 @@
 .DescriptionDiv{
     padding: 1rem;
     border-radius: .5rem;
-    /* width: 50vw; */
+    /* width: 30vw; */
     height: 10vh;
     background-color: var(--ds-background-neutral,#091e420a);
     font-size: 18px;
     margin-left: 2.7rem;
+   
 }
 
 .textAreaButtons{

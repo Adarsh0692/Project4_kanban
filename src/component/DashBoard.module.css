@@ -12,6 +12,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    z-index: -1;
 }
 
 .dash_div h1 {
@@ -23,38 +24,43 @@
     overflow: hidden;
     overflow-x: scroll;
     min-height: 500px;
-    padding: 2rem 1rem;
+    /* padding: 2rem 1rem; */
     color: whitesmoke;
     display: flex;
+    z-index: 9999;
 
 }
 .dash_containor::-webkit-scrollbar{
     display: none;
+
 }
 .addbtn{
+
     /* border: 2px red solid !important; */
+    border-radius: 10px !important;
     min-width: 15vw !important;
     /* margin: 20px 0 !important; */
     height: 7vh;
-    /* color: white !important; */
+    color: #0b0d12 !important;
     text-transform: initial !important;
     /* background-color: rgba(197, 190, 190, 0.42) !important; */
-    background-color: aliceblue !important;
+    background-color: rgba(243, 243, 243, 0.461) !important;
 }
 .addbtn:hover{
-    background-color: rgb(174, 163, 163);
+    background-color: rgba(174, 163, 163, 0.139) !important;
+    color: white !important;
 }
-
-.addList_div {
-    background-color: aliceblue;
+.addList_div{
+    background-color: #ebecf0;
+    
     min-width: 15vw;
     /* width: 20vw; */
     height: 90px;
     border-radius: 10px;
     padding: 10px 1rem;
+    z-index: 9999 !important;
     /* margin-left: 20px; */
     /* margin-right: 10px; */
-    /* border: 2px red solid; */
     /* position: sticky;
     right: 0; */
 }
@@ -64,17 +70,20 @@
     padding: 10px 10px;
     font-size: large;
     border-radius: 5px;
+    z-index: auto;
 }
 
 .crossbtn {
     margin: 10px 0;
     display: flex;
+    z-index: 9999;
 }
 
 .list_container {
     display: flex;
    margin-right: 20px;
     gap: 20px;
+    z-index: 9999;
 }
 
 .list_card{
@@ -83,9 +92,10 @@
    border-radius: 10px;
    padding: 10px;
    /* border: 2px red solid ; */
-    background-color: aliceblue;
+    background-color: #ebecf0;
     color: black;
     font-size: 25px;
+    
 }
 .listName{
    cursor: pointer;
@@ -93,14 +103,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
 }
 .cardBtn{
-  
-    margin-top: 10px;
+    padding-bottom: 10px ;
+}
+.AddNewbtn{
+    /* border: 2px red solid ; */
+    padding: 15px 0;
+    
 }
 
 .card {
-    background-color: #f9f3f3;
+    background-color: #fff;
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
@@ -109,13 +124,29 @@
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
+    
   }
-  /* .card span{
-    margin-left: 50px;
-  } */
-.listName p{
-    color: aliceblue;
+  .editInput{
+    width: 100%;
+    height: 30px;
+    font-size: large;
+  }
+  .edIcon{
+    display: flex;
+    gap: 10px;
+  }
+
+
+.icon:hover {
+    color: red;
+    font-size: 23px;
 }
-.listName p:hover{
-    color: rgb(157, 16, 16);
+
+.image{
+    min-height: 100vh;
+    object-fit: contain;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
