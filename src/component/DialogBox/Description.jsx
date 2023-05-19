@@ -7,35 +7,34 @@ import { HiMenuAlt2 } from 'react-icons/hi';
 import { Button } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 
-function Description(){
+function Description() {
   const contentData = JSON.parse(localStorage.getItem("description")) || ""
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(contentData);
   const [isEditBtnHide, setIsEditBtnHide] = useState(false)
 
   useEffect(() => {
-    if(contentData){
+    if (contentData) {
       setIsEditBtnHide(true)
     }
-  },[contentData])
+  }, [contentData])
 
 
-  function handleClick(){
+  function handleClick() {
     setIsEditing(true);
   };
-  
 
-  function handleSaveClick(){
-    if(content){
-    setIsEditBtnHide(true)
-    }else {
+
+  function handleSaveClick() {
+    if (content) {
+      setIsEditBtnHide(true)
+    } else {
       toast.warning('can not be empty')
-      
     }
     setIsEditing(false)
   }
 
-  function handleCancleClick(){
+  function handleCancleClick() {
     setIsEditing(false)
     setIsEditBtnHide(false)
     setContent("")

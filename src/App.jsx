@@ -1,13 +1,10 @@
 import React from 'react'
 import DashBoard from './component/DashBoard'
-
 import { Route, Routes  } from 'react-router'
 import DialogBox from './component/DialogBox/DialogBox'
 import Images from './component/BackgroundImage/Images'
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react'
-
-
 
 function App() {
 
@@ -20,7 +17,7 @@ function App() {
     localStorage.setItem('image', JSON.stringify(image.img))
     navigate('/');
   };
-// const persistor = persistStore(store)
+
   return (
     <>
    

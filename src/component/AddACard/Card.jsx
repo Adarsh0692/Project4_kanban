@@ -27,7 +27,7 @@ export default function Card({ cardData, handleDeleteTask }) {
 
   return (
     <>
-    
+
       <div
         className={style.cards}
         onMouseEnter={() => setIsHover(true)}

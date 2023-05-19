@@ -7,7 +7,6 @@ import style from "./DialogBox.module.css"
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useSelector } from 'react-redux'
@@ -20,7 +19,6 @@ const styles = {
   width: 800,
   height: 700,
   bgcolor: 'background.paper',
-  // border: '2px solid #000',
   boxShadow: 24,
   p: 2,
   overflow: 'scroll'

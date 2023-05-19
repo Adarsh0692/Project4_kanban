@@ -3,7 +3,6 @@ import ListSlice from "./ListSlice";
 import  storage  from "redux-persist/lib/storage";
 import { persistReducer,persistStore } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
-// import persistReducer from "redux-persist/es/persistReducer";
 
 const persistConfig = {
     key: 'root',

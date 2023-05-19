@@ -5,7 +5,7 @@ import style from "./DashBoard.module.css";
 import { useDispatch } from "react-redux";
 import { addList, addTask } from "../store/ListSlice";
 import { nanoid } from "nanoid";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 
 
 export default function AddNew({ type, listId }) {
@@ -25,23 +25,23 @@ export default function AddNew({ type, listId }) {
     } else
       if (input) {
         dispatch(addList({ id: nanoid(6), title: input }))
-      }else{
+      } else {
         toast.warning('can not be empty!')
       }
     setInput('')
   }
 
-  const btnName =() => {
-    if(type){
+  const btnName = () => {
+    if (type) {
       return '+ Add a card'
-    }else{
+    } else {
       return '+ Add a list'
     }
   }
 
   return (
     <div >
- 
+
       {isFormVisible ? (
         <Button
           onClick={() => setIsFormVisible(false)}
@@ -49,7 +49,7 @@ export default function AddNew({ type, listId }) {
           variant="text"
 
         >
-         {btnName()}
+          {btnName()}
         </Button>
       ) : (
         <div className={style.addList_div}>
@@ -61,14 +61,14 @@ export default function AddNew({ type, listId }) {
               }}
               onChange={handleListInput}
               placeholder="Add new card..." /> :
-              <input type="text" 
-              value={input}
+              <input type="text"
+                value={input}
                 onChange={handleListInput}
                 placeholder="Enter list title"
                 style={{ zIndex: 9999 }} />}
             <div className={style.crossbtn}>
               <Button
-                sx={{ height: "30px", textTransform: "capitalize" ,zIndex : 9999 }}
+                sx={{ height: "30px", textTransform: "capitalize", zIndex: 9999 }}
                 autoFocus={true}
                 variant="contained"
                 type='submit'

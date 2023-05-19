@@ -1,5 +1,6 @@
+
 import React, { useRef, useState } from "react";
-import { deleteList, deleteTask, reordedList,editList,editTask } from "../store/ListSlice";
+import { deleteList, deleteTask, reorderList, editList, editTask } from "../store/ListSlice";
 import { useDispatch, useSelector } from "react-redux";
 import style from './DashBoard.module.css'
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,148 +12,133 @@ import "react-toastify/dist/ReactToastify.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 
-
 export default function DashBoard({ selectedImage }) {
-  const [isHover, setIsHover] = useState(true)
-  const [editingListId, setEditingListId] = useState(null);
- 
-  const textRef =useRef(null)
- 
-  const list = useSelector((state) => state.ListSlice.list);
-  // const [list , setList] = useState(lists)
-  const dispatch = useDispatch();
 
+  const [editingListId, setEditingListId] = useState(null);
+
+  const textRef = useRef(null)
+
+  const list = useSelector((state) => state.ListSlice.list);
+  const dispatch = useDispatch();
 
   function handleListDelete(item) {
     dispatch(deleteList(item.id));
-    // console.log(item.id)
-    toast.success(`List ${item.title} Deleted successfully.`);
+    toast.success(`List ${item.title} deleted successfully.`);
   }
 
   function handleDeleteTask(task) {
-    const listName = list.filter((item) => item.id === task.listId)
-    dispatch(deleteTask(task))
-    toast.success(`Task ${task.title} from list ${listName[0].title} Deleted successfully.`);
+    const listName = list.find((item) => item.id === task.listId);
+    dispatch(deleteTask(task));
+    toast.success(`Task ${task.title} from list ${listName.title} deleted successfully.`);
   }
 
   function handleToggleEdit(item) {
-    
     setEditingListId(item.id);
-    
-  }
-  function handleChangeblur(itemId){
-   const updated= (textRef.current.value);
-    setEditingListId(null)
-    dispatch(editList({updated, itemId}))
-    
   }
 
-  function handleEditTask(task){
- console.log('hello', task)
+  function handleChangeBlur(itemId) {
+    const updated = textRef.current.value;
+    setEditingListId(null);
+    dispatch(editList({ updated, itemId }));
   }
 
   const onDragEnd = (result) => {
-    if (!result.destination) {
+    const { destination, source, draggableId, type } = result;
+
+    if (!destination) {
       return;
     }
-    function reorder(list, startIndex, endIndex) {
-      const result = Array.from(list);
-      const [removed] = result.splice(startIndex, 1);
-      result.splice(endIndex, 0, removed);
-      return result;
+    if (destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
     }
-    console.log(reorder);
-    dispatch(reordedList(reorder))
-  }
 
-  const getListStyle = (isDraggingOver) => ({
-      // background: isDraggingOver? 'lightblue' : 'lightgrey' ,
-      // padding : 8,
-      //  width: 250,
-  })
-
-  const getItemStyle = (isDragging, draggableStyle) => ({
-    userSelect: 'none',
-    padding: 16,
-    margin: '0 0 8px 0',
-    // background: isDragging? 'lightgreen' : 'grey',
-    ...draggableStyle
-  })
+    dispatch(reorderList(result
+    ));
+  };
 
   return (
-    
-    <div className={style.dash_div} >
-      <div  className={style.image} style={{ backgroundImage: `url(${selectedImage})` }}>
-      
-      <Navbar />
-
-      <ToastContainer position="top-center" autoClose='2000' />
-     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) =>(
-          <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-
-         
-      <div className={style.dash_containor}>
-        <div className={style.list_container}>
-          {list.map((item,index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
-              {(provided, snapshot) =>(
-
-            
-            <div ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-             className={style.cardBox}>
-              <div className={style.list_card}>
-                <div className={style.listName} 
-                // onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}
-                >
-
-                 {editingListId === item.id?  (
-                  <input 
-                  className={style.editInput}
-                  type="text"
-                  ref={textRef}
-                  autoFocus
-                   defaultValue={item.title}
-                   onBlur={() =>handleChangeblur(item.id)}
-                  />
-                 ) : (<span onClick={() => handleToggleEdit(item)} >{item.title}</span>) }
-                <div  className={style.divicon} onClick={() => handleListDelete(item)}>
-                  <DeleteIcon className={style.icon} sx={{fontSize:'20px', cursor:'pointer'}} />
-                </div>
-                </div>
-                <div>
-                  {item.task &&
-                    item.task.map((task) => (
-                      <div key={task.id} className={style.card} draggable >
-                        <Card cardData={task} handleDeleteTask={()=>handleDeleteTask(task)}/>
-                       
-                      </div>
+    <div className={style.dash_div}>
+      <div className={style.image} style={{ backgroundImage: `url(${selectedImage})` }}>
+        <Navbar />
+        <ToastContainer position="top-center" autoClose={2000} />
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId='list' type="list">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef} >
+                <div className={style.dash_containor}>
+                  <div className={style.list_container}>
+                    {list.map((item, index) => (
+                      <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className={style.cardBox}
+                          >
+                            <div className={style.list_card}>
+                              <div className={style.listName}>
+                                {editingListId === item.id ? (
+                                  <input
+                                    className={style.editInput}
+                                    type="text"
+                                    ref={textRef}
+                                    autoFocus
+                                    defaultValue={item.title}
+                                    onBlur={() => handleChangeBlur(item.id)}
+                                  />
+                                ) : (
+                                  <span onClick={() => handleToggleEdit(item)}>{item.title}</span>
+                                )}
+                                <div className={style.divicon} onClick={() => handleListDelete(item)}>
+                                  <DeleteIcon className={style.icon} sx={{ fontSize: '20px', cursor: 'pointer' }} />
+                                </div>
+                              </div>
+                              <div>
+                                <Droppable droppableId={item.id.toString()} type="card">
+                                  {(provided) => (
+                                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                                      {item.task &&
+                                        item.task.map((task, index) => (
+                                          <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                                            {(provided) => (
+                                              <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className={style.card}
+                                              >
+                                                <Card cardData={task} handleDeleteTask={() => handleDeleteTask(task)} />
+                                              </div>
+                                            )}
+                                          </Draggable>
+                                        ))}
+                                      {provided.placeholder}
+                                    </div>
+                                  )}
+                                </Droppable>
+                              </div>
+                              <div className={style.cardBtn}>
+                                <AddNew type="card" listId={item.id} />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </Draggable>
                     ))}
-                </div>
-                <div className={style.cardBtn}>
-                  <AddNew type="card" listId={item.id} />
+                    {provided.placeholder}
+                  </div>
+                  <div className={style.AddNewbtn}>
+                    <AddNew />
+                  </div>
                 </div>
               </div>
-            </div>
-              )}
-            </Draggable>
-          ))}
-        </div>
-        <div className={style.AddNewbtn}>
-        <AddNew />
-        </div>
-        
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
-      </div>
-        )}
-      </Droppable>
-      </DragDropContext>
     </div>
-</div>
   );
 }
-

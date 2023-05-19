@@ -8,22 +8,16 @@ const ListSlice = createSlice({
   reducers: {
     addList(state, action) {
       state.list.push(action.payload);
-      // console.log("action is", action);
     },
     deleteList: (state, action) => {
-      // state.list = state.list.filter((item) => item.id !== action.payload)
-      state.list.splice(action.payload, 1);
-      // console.log("delete",action.payload);
+      state.list = state.list.filter((item) => item.id !== action.payload)
     },
 
     clearAll: (state, action) => {
       state.list.splice(action.payload, state.list.length);
-      //    state.list = []
-      //    state.task = []
     },
 
     addTask(state, action) {
-      // console.log('action=> ', action);
       state.list.forEach((item) => {
         if (item.id === action.payload.listId) {
           if (Object.hasOwn(item, "task")) {
@@ -37,22 +31,34 @@ const ListSlice = createSlice({
       });
     },
     deleteTask: (state, action) => {
-      // console.log(action.payload);
       state.list.forEach((item) => {
         if (item.id === action.payload.listId) {
-          // console.log(item)
-          //    item.task = item.task.filter((task) => task.id !== action.payload.id)
-          item.task.splice(action.payload, 1);
+          item.task = item.task.filter((task) => task.id !== action.payload.id)
         }
       });
     },
 
-    reordedList: (state, action) => {
-      state.list = action.payload;
-      console.log(action);
+    reorderList: (state, action) => {
+      const { source, destination, draggableId } = action.payload;
+      const sourceList = state.list.find((item) => item.id === source.droppableId);
+      const destinationList = state.list.find((item) => item.id === destination.droppableId);
+
+      if (source.droppableId === destination.droppableId) {
+        const leest = state.list.find((item) => source.droppableId === item.id)
+        state.list.forEach((item) => {
+          if (item.id === source.droppableId) {
+            const card = item.task.splice(source.index, 1)
+            item.task.splice(destination.index, 0, ...card)
+          }
+        })
+      } else {
+        const taskToMove = sourceList.task.find((task) => task.id === draggableId);
+        sourceList.task.splice(source.index, 1);
+        destinationList.task.splice(destination.index, 0, taskToMove);
+      }
     },
+
     editList: (state, action) => {
-      // console.log('action', action);
       const { itemId, updated } = action.payload;
       const list = state.list.find((item) => item.id === itemId);
       if (list) {
@@ -79,7 +85,7 @@ export const {
   clearAll,
   addTask,
   deleteTask,
-  reordedList,
+  reorderList,
   editList,
   editTask,
 } = ListSlice.actions;

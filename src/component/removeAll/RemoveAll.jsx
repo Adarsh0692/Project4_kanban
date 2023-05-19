@@ -9,6 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 const RemoveAll = () => {
+  
   const dispatch = useDispatch();
 
   const deleteAll = () => {

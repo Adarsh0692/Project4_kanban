@@ -1,32 +1,30 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
-export default function List({item}) {
-    const [isUpdate, setIsUpdate] = useState(true)
-    const dispatch = useDispatch()
+export default function List({ item }) {
 
-    const renderForm =() => {
-        return (
-            <form >
-                <input type="text" defaultValue={item.title} />
-                <button type='submit'>save</button>
-            </form>
-        );
-    }
+  const [isUpdate, setIsUpdate] = useState(true)
 
-    const renderList =() => {
-        return(
-            <>
-           <span>  {task.title}</span>
+  const renderForm = () => {
+    return (
+      <form >
+        <input type="text" defaultValue={item.title} />
+        <button type='submit'>save</button>
+      </form>
+    );
+  }
+  const renderList = () => {
+    return (
+      <>
+        <span>  {task.title}</span>
 
-            </>
-        )
-    }
+      </>
+    )
+  }
 
   return (
     <div>
       {
-        isUpdate? renderList() : renderForm()
+        isUpdate ? renderList() : renderForm()
       }
     </div>
   )
