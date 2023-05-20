@@ -1,5 +1,6 @@
 
 import styles from './Images.module.css';
+import { images } from '../../asset/ImageData';
 
 const Images = ({ handleSelectImage }) => {
 

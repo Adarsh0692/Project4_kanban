@@ -9,6 +9,7 @@ import DOMPurify from 'dompurify';
 import Avatar from '@mui/material/Avatar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
+import Parser from 'html-react-parser';
 
 
 export default function Activity() {
@@ -31,12 +32,17 @@ export default function Activity() {
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       var dateTime = date + ' ' + time;
       setArr([...arr, { text: text, time: dateTime }])
+     
     } else {
       toast.warning('can not be empty')
     }
     setText("")
     setIsEditing(false)
   }
+
+  const handleChange = (value) => {
+    setText(value);
+  };
 
   function handleClickDelete(index) {
     let result = arr.filter((ele, i) => i !== index)
@@ -48,26 +54,16 @@ export default function Activity() {
     setshowAndHideDetailes(result)
   }
 
-  const handleChange = (value) => {
-    const sanitizedHTML = DOMPurify.sanitize(value, {
-      ALLOWED_TAGS: [],
-      KEEP_CONTENT: true,
-    });
+ 
 
-    setText(sanitizedHTML);
-    setCursorToEnd();
+  const getTextFromHTML = (html) => {
+    const parsedHtml = Parser(html);
+    return parsedHtml;
   };
 
-  const setCursorToEnd = () => {
-    if (editorRef.current) {
-      const editor = editorRef.current.getEditor();
-      const length = editor.getLength();
-      editor.setSelection(length, length);
-      editor.focus();
-    }
-  };
 
   localStorage.setItem("commentData", JSON.stringify(arr))
+ 
 
   return (
     <div className={style.mainContainer}>
@@ -117,9 +113,9 @@ export default function Activity() {
               </div>
             </div>
             <div>
-              <div className={style.comments}>{ele.text}</div>
-            </div>
-          </> : null}
+          <div className={style.comments}>{getTextFromHTML(ele.text)}</div>
+          </div>
+            </> : null}
         </div>
       })}
     </div>

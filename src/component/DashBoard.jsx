@@ -19,6 +19,7 @@ export default function DashBoard({ selectedImage }) {
   const textRef = useRef(null)
 
   const list = useSelector((state) => state.ListSlice.list);
+ 
   const dispatch = useDispatch();
 
   function handleListDelete(item) {
@@ -42,31 +43,49 @@ export default function DashBoard({ selectedImage }) {
     dispatch(editList({ updated, itemId }));
   }
 
+
   const onDragEnd = (result) => {
-    const { destination, source, draggableId, type } = result;
+    const { destination, source, type} = result;
 
     if (!destination) {
       return;
     }
-    if (destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
+    if(destination.droppableId === source.droppableId &&
+      destination.index === source.index 
+      ){
+        return;
+      }
 
     dispatch(reorderList(result
-    ));
+      ));
+
+      if (type === "list") {
+        const reorderedLists = Array.from(list);
+        const movedList = reorderedLists.splice(source.index, 1)[0];
+        reorderedLists.splice(destination.index, 0, movedList);
+    
+        dispatch(reordedList({ lists: reorderedLists }));
+      }
+    
+   
   };
 
+ 
+
+  const getListStyle = () => ({
+    
+  });
+  
+ 
   return (
     <div className={style.dash_div}>
       <div className={style.image} style={{ backgroundImage: `url(${selectedImage})` }}>
         <Navbar />
         <ToastContainer position="top-center" autoClose={2000} />
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId='list' type="list">
+          <Droppable droppableId='list'  type="list">
             {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef} >
+              <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle()}>
                 <div className={style.dash_containor}>
                   <div className={style.list_container}>
                     {list.map((item, index) => (
@@ -142,3 +161,7 @@ export default function DashBoard({ selectedImage }) {
     </div>
   );
 }
+
+
+
+

@@ -6,26 +6,77 @@ This is a simple implementation of a Kanban Board, a tool that helps visualize a
 A Kanban Board is usually made of 3 columns - TODO, InProgress & Done. In each column there are Post-it notes that represents task and their status.
 # Getting Started
 # Dependencies
-* Material UI
+* react-router-dom
 * reactjs/toolkit
 * react-redux
+* redux-persist
+* react-icons
+* react-quill
+* react-toastify
+* react-beautiful-dnd
+* Material UI
 * nanoid
-# Installing
-* npm create vite react app 
+
 # Authors
 Contributors names
 * Adarsh kushwaha
 * Aditya Shaw
 * Vaidehi Ramilla
 * Vikrant Kumar
-# Data Structure
-Todo={ id:Math.random(), name:"", task:[{taskId:"id",title:"xyz",taskDate:"Date",userId:"",description:""}] },
 
-Activity={ id:Math.random(), name:"", task:[{taskId:"id",title:"xyz",taskDate:"Date",userId:"",description:""}, ] } ,
-Done={ id:Math.random(), name:"", task:[{taskId:"id",title:"xyz",taskDate:"Date",userId:"",description:""}, ] },
-Done={ id:Math.random(), name:"", task:[{taskId:"id",title:"xyz",taskDate:"Date",userId:"",description:""}, ] },
 
-task={ id:Math.random(), date:new Date(), task:"Vuy some vegetable", Username:"sidfspi" history:[{listID:id,dragAndDroptime:"",currentTIme:""},] }
+# Deployment Link 
+* https://kanban-board-y2a1.onrender.com
+
+## Data Structure 
+
+
+```json
+{
+  "KanBan": {
+    "list": [
+      {
+        "id": "nanoId()",
+        "title": "Todo",
+        "task": [
+          {
+            "id": "nanoId()",
+            "title": " ",
+            "listId": " "
+          },
+          {
+            "id": "nanoId()",
+            "title": " ",
+            "listId": " "
+          }
+        ]
+      },
+      {
+        "id": "nanoId()",
+        "title": "Doing",
+        "task": [
+          {
+            "id": "nanoId()",
+            "title": " ",
+            "listId": " "
+          }
+        ]
+      },
+      {
+        "id": "nanoId()",
+        "title": "complete",
+        "task": [
+          {
+            "id": "nonoId()",
+            "title": " ",
+            "listId": " "
+          }
+        ]
+      }
+    ]
+  }
+}
+
 
 
 

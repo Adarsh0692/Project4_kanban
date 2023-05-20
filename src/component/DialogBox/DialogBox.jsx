@@ -25,17 +25,19 @@ const styles = {
 };
 
 function DialogBox() {
-  const [open, setOpen] = React.useState(true);
-  const location = useLocation()
-  const navigate = useNavigate()
-  const list = useSelector((state) => state.ListSlice.list)
-  const listName = list.find((item) => item.id === location.state.card.listId)
-
-  const handleClose = () => {
-    setOpen(false)
-    navigate('/')
-  };
-
+    const [open, setOpen] = React.useState(true);
+    const location = useLocation()
+    // console.log(location.state.card.id);
+   const navigate = useNavigate()
+   const list = useSelector((state) => state.ListSlice.list)
+   const listName = list.find((item) => item.id === location.state.card.listId)
+   
+  //  console.log(cardData);
+    const handleClose = () => {
+      setOpen(false)
+      navigate('/')
+    };
+    // console.log(location);
   return (
     <div className={style.mainContainer}>
 
@@ -47,14 +49,14 @@ function DialogBox() {
       >
         <Box sx={styles}>
           <Typography id="modal-modal-description" sx={{ mt: 0 }}>
-            <div>
-              <Title title={location.state.card.title} listName={listName.title} cardData={listName.task[0]} />
-            </div>
-            <div className={style.decription}>
-              <Description />
-            </div>
-
-            <Activity />
+         <div>
+         <Title title ={location.state.card.title} listName={listName.title} cardData = {listName.task[0]}/>
+         </div>
+     <div className={style.decription}>
+     <Description taskId={location.state.card.id}/>
+     </div>
+     
+      <Activity/>
           </Typography>
         </Box>
       </Modal>

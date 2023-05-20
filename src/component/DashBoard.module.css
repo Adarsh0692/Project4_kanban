@@ -17,14 +17,17 @@
 .dash_div h1 {
   color: white;
 }
-.dash_containor {
-  max-width: 1350px;
-  overflow: hidden;
-  overflow-x: scroll;
-  min-height: 500px;
-  color: whitesmoke;
-  display: flex;
-  z-index: 9999;
+.dash_containor{
+    /* border: 2px red solid; */
+    max-width: 1650px;
+    overflow: hidden;
+    overflow-x: scroll;
+    min-height: 500px;
+    /* padding: 2rem 1rem; */
+    color: whitesmoke;
+    display: flex;
+    z-index: 9999;
+
 }
 .dash_containor::-webkit-scrollbar {
   display: none;

@@ -1,15 +1,21 @@
-.reactQuill {
-  height: 20vh;
+.desText{
+    /* width: 50vw; */
+    height: 10vh;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
 }
 
-.logoH1 {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.logoH1{
+    display: flex;
+    align-items: center;
+    gap: .8rem;
 }
 
-.logo {
-  font-size: 1.7rem;
+.logo{
+    font-size: 1.7rem;
+    margin-left: -1rem;
 }
 
 .DescriptionDiv {
@@ -28,6 +34,9 @@
   gap: 2rem;
 }
 
-.content {
-  margin-left: 2.7rem;
+.content{
+    margin-left: 2.7rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    word-break: break-all;
 }
