@@ -23,7 +23,7 @@
     overflow: hidden;
     overflow-x: scroll;
     min-height: 500px;
-    /* padding: 2rem 1rem; */
+    padding: 2rem 1rem;
     color: whitesmoke;
     display: flex;
     z-index: 9999;
@@ -98,9 +98,6 @@
   padding-bottom: 10px;
 }
 
-.AddNewbtn {
-  padding: 15px 0;
-}
 
 .card {
   background-color: #fff;

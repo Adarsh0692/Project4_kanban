@@ -2,6 +2,12 @@
     margin-top: 1rem;
 }
 
+.reactQuill{
+    padding: 0 10px;
+    font-size: large;
+    border-radius: 10px;
+    height: 7vh;
+}
 
 .textAreaButton{
     display: flex;

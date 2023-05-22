@@ -5,7 +5,7 @@ import style from "./DashBoard.module.css";
 import { useDispatch } from "react-redux";
 import { addList, addTask } from "../store/ListSlice";
 import { nanoid } from "nanoid";
-import {  toast } from "react-toastify";
+
 
 
 export default function AddNew({ type, listId }) {
@@ -21,7 +21,7 @@ export default function AddNew({ type, listId }) {
   function handleAddList(e) {
     e.preventDefault();
     if (type && input) {
-      dispatch(addTask({ id: nanoid(7), title: input, listId: listId }))
+      dispatch(addTask({ id: nanoid(7), title: input, listId: listId, description: '', activity: [] }))
     } else
       if (input) {
         dispatch(addList({ id: nanoid(6), title: input }))
@@ -40,8 +40,8 @@ export default function AddNew({ type, listId }) {
   }
 
   return (
-    <div >
-
+    <div className={style.addbtndiv}>
+ 
       {isFormVisible ? (
         <Button
           onClick={() => setIsFormVisible(false)}

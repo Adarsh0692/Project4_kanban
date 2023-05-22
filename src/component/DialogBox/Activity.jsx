@@ -10,16 +10,25 @@ import Avatar from '@mui/material/Avatar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
 import Parser from 'html-react-parser';
+import { activity,deleteActivity } from '../../store/ListSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { nanoid } from 'nanoid';
 
 
-export default function Activity() {
-
+export default function Activity({cardData}) {
   const updatedCommentData = JSON.parse(localStorage.getItem("commentData")) || []
+  const list = useSelector((state) => state.ListSlice.list);
+  const newList = list.find((item) => item.id === cardData.listId);
+  const newTask = newList.task.find((item) => item.id === cardData.id);
+  const activityData = newTask.activity
   const [text, setText] = useState("")
-  const [arr, setArr] = useState(updatedCommentData)
+  
   const [isEditing, setIsEditing] = useState(false);
   const [showAndHideDetailes, setshowAndHideDetailes] = useState("Hide detailes")
-  const editorRef = useRef(null);
+ 
+  const dispatch = useDispatch()
+  
 
   function handleClick() {
     setIsEditing(true)
@@ -31,22 +40,25 @@ export default function Activity() {
       var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       var dateTime = date + ' ' + time;
-      setArr([...arr, { text: text, time: dateTime }])
+    
+     dispatch(activity({id: nanoid(4) ,comment: text, time: dateTime, cardData: cardData}))
+    
      
     } else {
+     
       toast.warning('can not be empty')
     }
     setText("")
     setIsEditing(false)
   }
 
-  const handleChange = (value) => {
-    setText(value);
+  const handleChange = (e) => {
+    setText(e.target.value);
   };
 
-  function handleClickDelete(index) {
-    let result = arr.filter((ele, i) => i !== index)
-    setArr(result)
+  function handleClickDelete(id) {
+    dispatch(deleteActivity({id:id, cardData: cardData}))
+    toast.success('activity deleted successfully')
   }
 
   function handleShowAndHideComments() {
@@ -62,7 +74,7 @@ export default function Activity() {
   };
 
 
-  localStorage.setItem("commentData", JSON.stringify(arr))
+ 
  
 
   return (
@@ -86,12 +98,13 @@ export default function Activity() {
       </div>
       {isEditing ? (
         <div className={style.textAreaButton}>
-          <ReactQuill ref={editorRef} className={style.reactQuill} value={text} onChange={handleChange} />
+         
+          <input type='text' className={style.reactQuill} value={text} onChange={handleChange}/>
           <Button variant='contained' onClick={handleSaveClick} sx={{
-            // marginTop: "1rem",
+        
             width: "5rem",
             textTransform: "capitalize",
-            // marginLeft: "2.7rem"
+     
           }}>Save</Button>
         </div>
       )
@@ -101,19 +114,19 @@ export default function Activity() {
           <div onClick={handleClick} className={style.activityDiv}>Write a comment...</div>
         </div>
       }
-      {arr.map((ele, index) => {
+      {activityData &&  activityData.map((ele, index) => {
         return <div key={index} className={style.commentsEditAndDelete}>
           {showAndHideDetailes === "Hide detailes" ? <>
-            <div className={style.timeAndDelete}>
-              <Avatar src="/broken-image.jpg" />
-              <div className={style.h3}><h3 >Adarsh</h3></div>
-              <div className={style.time}> {ele.time}</div>
-              <div className={style.Delete}>
-                <div onClick={() => handleClickDelete(index)}><DeleteForeverIcon /></div>
+          <div className={style.timeAndDelete}>
+          <Avatar src="/broken-image.jpg" />
+          <div className={style.h3}><h3 >Adarsh</h3></div>
+            <div className={style.time}> {ele.time}</div>
+            <div className={style.Delete}>
+              <div onClick={() => handleClickDelete(ele.id)}><DeleteForeverIcon/></div>
               </div>
             </div>
             <div>
-          <div className={style.comments}>{getTextFromHTML(ele.text)}</div>
+          <div className={style.comments}>{getTextFromHTML(ele.comment)}</div>
           </div>
             </> : null}
         </div>

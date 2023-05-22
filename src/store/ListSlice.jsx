@@ -8,6 +8,7 @@ const ListSlice = createSlice({
   reducers: {
     addList(state, action) {
       state.list.push(action.payload);
+      console.log(action.payload);
      
     },
     deleteList: (state, action) => {
@@ -21,7 +22,7 @@ const ListSlice = createSlice({
     },
 
     addTask(state, action) {
-     
+     console.log(action.payload);
       state.list.forEach((item) => {
         if (item.id === action.payload.listId) {
           if (Object.hasOwn(item, "task")) {
@@ -84,6 +85,45 @@ const ListSlice = createSlice({
         }
       });
     },
+    description: (state,action) => {
+      // console.log('description', action.payload);
+      const { content, cardData} = action.payload;
+      state.list.forEach((item) => {
+      if(item.id === cardData.listId){
+        
+        const taskData = item.task.find((item) => item.id === cardData.id);
+          if (taskData) {
+            taskData.description = content; 
+          }
+      }
+    })
+    },
+    activity: (state,action) => {
+      // console.log('activity', action.payload);
+      const {id, comment, time, cardData} = action.payload;
+      state.list.forEach((item) => {
+      if(item.id === cardData.listId){
+        
+        const taskData = item.task.find((item) => item.id === cardData.id);
+          if (taskData) {
+            taskData.activity.push({id,comment: comment,time: time}) 
+          }
+      }
+    })
+    },
+    deleteActivity: (state, action) => {
+            console.log(action.payload);
+            const {id, cardData} = action.payload
+      state.list.forEach((item) => {
+        if(item.id === cardData.listId){
+          
+          const taskData = item.task.find((item) => item.id === cardData.id);
+            if (taskData) {
+              taskData.activity = taskData.activity.filter((item) => item.id !== id)
+            }
+        }
+      })
+    }
   },
 });
 
@@ -96,5 +136,8 @@ export const {
   reorderList,
   editList,
   editTask,
+  description,
+  activity,
+  deleteActivity
 } = ListSlice.actions;
 export default ListSlice.reducer;

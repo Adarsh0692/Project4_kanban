@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 
+
 export default function DashBoard({ selectedImage }) {
 
   const [editingListId, setEditingListId] = useState(null);
@@ -46,6 +47,7 @@ export default function DashBoard({ selectedImage }) {
 
   const onDragEnd = (result) => {
     const { destination, source, type} = result;
+    console.log(result);
 
     if (!destination) {
       return;
@@ -56,16 +58,9 @@ export default function DashBoard({ selectedImage }) {
         return;
       }
 
-    dispatch(reorderList(result
-      ));
+    dispatch(reorderList(result));
 
-      if (type === "list") {
-        const reorderedLists = Array.from(list);
-        const movedList = reorderedLists.splice(source.index, 1)[0];
-        reorderedLists.splice(destination.index, 0, movedList);
-    
-        dispatch(reordedList({ lists: reorderedLists }));
-      }
+      
     
    
   };
@@ -81,7 +76,7 @@ export default function DashBoard({ selectedImage }) {
     <div className={style.dash_div}>
       <div className={style.image} style={{ backgroundImage: `url(${selectedImage})` }}>
         <Navbar />
-        <ToastContainer position="top-center" autoClose={2000} />
+        <ToastContainer position="top-center" autoClose={2000}  />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='list'  type="list">
             {(provided) => (
