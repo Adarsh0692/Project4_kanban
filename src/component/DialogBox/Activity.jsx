@@ -2,7 +2,8 @@ import React from 'react';
 import style from "./Activity.module.css";
 import { useState } from 'react';
 import { Button } from '@mui/material';
-import ReactQuill from 'react-quill';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
+import { styled } from '@mui/system';
 import Parser from 'html-react-parser';
 import 'react-quill/dist/quill.snow.css';
 import { RxActivityLog } from 'react-icons/rx';
@@ -80,11 +81,7 @@ export default function Activity() {
       </div>
       {isEditing ? (
         <div className={style.textAreaButton}>
-          <ReactQuill
-            className={style.reactQuill}
-            value={text}
-            onChange={handleContentChange}
-          />
+          <textarea className={style.textarea}/>
           <Button
             variant='contained'
             onClick={handleSaveClick}

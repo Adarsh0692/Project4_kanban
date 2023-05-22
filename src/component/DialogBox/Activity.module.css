@@ -2,12 +2,19 @@
     margin-top: 1rem;
 }
 
+.textarea{
+    height: 8vh;
+    padding: 1rem;
+}
+
 
 .textAreaButton {
     display: flex;
     flex-direction: column;
     height: fit-content;
     gap: 2rem;
+    width: 46vw;
+    margin-left: 2.7rem;
 }
 
 .activityDiv {
