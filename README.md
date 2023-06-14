@@ -3,7 +3,7 @@ Kanban Board
 # Description
 This is a simple implementation of a Kanban Board, a tool that helps visualize and manage work. Originally it was first created in Toyota automotive, but nowadays it's widely used in software development.
 
-A Kanban Board is usually made of 3 columns - But in this Kanban Board user can create multiple list and inside list they can create multiple task also.
+A Kanban Board is usually made of 3 columns - But in this Kanban Board user can create multiple list and inside list they can create multiple task also. And whenever user will click on a perticuler task and then it will navigate dynamically to the description page where they can add a description for that perticuler task and also comments on that activity. 
 # Getting Started
 # Dependencies
 * react-router-dom
@@ -29,9 +29,8 @@ Contributors names
 * https://kanban-board-y2a1.onrender.com
 
 ## Data Structure 
-
-
 ```json
+
 {
   "KanBan": {
     "list": [
