@@ -32,7 +32,7 @@ Contributors names
 ```json
 
 {
-  'KanBan': {
+  "KanBan": {
     "list": [
       {
         "id": "nanoId()",
