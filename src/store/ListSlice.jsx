@@ -8,7 +8,7 @@ const ListSlice = createSlice({
   reducers: {
     addList(state, action) {
       state.list.push(action.payload);
-      console.log(action.payload);
+      
      
     },
     deleteList: (state, action) => {
@@ -22,7 +22,7 @@ const ListSlice = createSlice({
     },
 
     addTask(state, action) {
-     console.log(action.payload);
+    
       state.list.forEach((item) => {
         if (item.id === action.payload.listId) {
           if (Object.hasOwn(item, "task")) {
@@ -38,7 +38,8 @@ const ListSlice = createSlice({
     deleteTask: (state, action) => {
      
       state.list.forEach((item) => {
-        if (item.id === action.payload.listId) {
+       
+        if (item.id === action.payload.listId || item.id === action.payload.id) {
         
              item.task = item.task.filter((task) => task.id !== action.payload.id)
         }
@@ -46,25 +47,25 @@ const ListSlice = createSlice({
     },
 
     reorderList: (state, action) => {
-      const { source, destination, draggableId ,type} = action.payload;
-       
+      const { source, destination, draggableId } = action.payload;
+    
       const sourceList = state.list.find((item) => item.id === source.droppableId);
       const destinationList = state.list.find((item) => item.id === destination.droppableId);
     
       if (source.droppableId === destination.droppableId) {
-        const leest = state.list.find((item) => source.droppableId === item.id)
-        state.list.forEach((item) => {
-          if(item.id === source.droppableId){
-            const card = item.task.splice(source.index, 1)
-            item.task.splice(destination.index, 0, ...card)
-          }
-        })
+        const sourceTask = sourceList.task.find((task) => task.id === draggableId);
+        sourceList.task.splice(source.index, 1);
+        sourceList.task.splice(destination.index, 0, sourceTask);
       } else {
         const taskToMove = sourceList.task.find((task) => task.id === draggableId);
-        sourceList.task.splice(source.index, 1);
-        destinationList.task.splice(destination.index, 0, taskToMove);
+        const updatedTask = { ...taskToMove, listId: destination.droppableId };
+        sourceList.task = sourceList.task.filter((task) => task.id !== draggableId);
+        destinationList.task.splice(destination.index, 0, updatedTask);
       }
     },
+
+ 
+    
     
     editList: (state, action) => {
       
@@ -86,7 +87,7 @@ const ListSlice = createSlice({
       });
     },
     description: (state,action) => {
-      // console.log('description', action.payload);
+     
       const { content, cardData} = action.payload;
       state.list.forEach((item) => {
       if(item.id === cardData.listId){
@@ -99,7 +100,7 @@ const ListSlice = createSlice({
     })
     },
     activity: (state,action) => {
-      // console.log('activity', action.payload);
+     
       const {id, comment, time, cardData} = action.payload;
       state.list.forEach((item) => {
       if(item.id === cardData.listId){
@@ -112,7 +113,7 @@ const ListSlice = createSlice({
     })
     },
     deleteActivity: (state, action) => {
-            console.log(action.payload);
+           
             const {id, cardData} = action.payload
       state.list.forEach((item) => {
         if(item.id === cardData.listId){

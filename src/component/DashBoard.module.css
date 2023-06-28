@@ -4,14 +4,15 @@
 }
 
 .dash_div {
-  background-image: url("https://e0.pxfuel.com/wallpapers/356/696/desktop-wallpaper-plain-background-awesome-black-windows-10.jpg");
-  min-height: 100vh;
-  object-fit: contain;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  z-index: -1;
+    background-image: url("https://e0.pxfuel.com/wallpapers/356/696/desktop-wallpaper-plain-background-awesome-black-windows-10.jpg");
+    /* width: 100vw; */
+    min-height: 100vh;
+    object-fit: contain;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* z-index: -1; */
 }
 
 .dash_div h1 {
@@ -26,7 +27,7 @@
     padding: 2rem 1rem;
     color: whitesmoke;
     display: flex;
-    z-index: 9999;
+    /* z-index: 9999; */
 
 }
 .dash_containor::-webkit-scrollbar {
@@ -46,35 +47,40 @@
   background-color: rgba(174, 163, 163, 0.139) !important;
   color: white !important;
 }
-
-.addList_div {
-  background-color: #ebecf0;
-  min-width: 15vw;
-  height: 90px;
-  border-radius: 10px;
-  padding: 10px 1rem;
-  z-index: 9999 !important;
+.addList_div{
+    background-color: #ebecf0;
+    
+    min-width: 15vw;
+    /* width: 20vw; */
+    height: 90px;
+    border-radius: 10px;
+    padding: 10px 1rem;
+    /* z-index: 9999 !important; */
+    /* margin-left: 20px; */
+    /* margin-right: 10px; */
+    /* position: sticky;
+    right: 0; */
 }
-
-.addList_div input {
-  height: 30px;
-  padding: 10px 10px;
-  font-size: large;
-  border-radius: 5px;
-  z-index: auto;
+.addList_div input{
+    /* width: 95%; */
+    height: 30px;
+    padding: 10px 10px;
+    font-size: large;
+    border-radius: 5px;
+    /* z-index: auto; */
 }
 
 .crossbtn {
-  margin: 10px 0;
-  display: flex;
-  z-index: 9999;
+    margin: 10px 0;
+    display: flex;
+    /* z-index: 9999; */
 }
 
 .list_container {
-  display: flex;
-  margin-right: 20px;
-  gap: 20px;
-  z-index: 9999;
+    display: flex;
+   margin-right: 20px;
+    gap: 20px;
+    /* z-index: 0; */
 }
 
 .list_card {
