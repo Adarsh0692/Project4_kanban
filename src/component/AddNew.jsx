@@ -68,7 +68,7 @@ export default function AddNew({ type, listId }) {
                 style={{ zIndex: 9999 }} />}
             <div className={style.crossbtn}>
               <Button
-                sx={{ height: "30px", textTransform: "capitalize" ,zIndex : 9999 }}
+                sx={{ height: "30px", textTransform: "capitalize"  }}
                 autoFocus={true}
                 variant="contained"
                 type='submit'
@@ -76,7 +76,7 @@ export default function AddNew({ type, listId }) {
               >
                 Add
               </Button>
-              <CloseIcon onClick={() => setIsFormVisible(true)} sx={{ fontSize: '30px', color: 'black', cursor: 'pointer', zIndex: 9999 }} />
+              <CloseIcon onClick={() => setIsFormVisible(true)} sx={{ fontSize: '30px', color: 'black', cursor: 'pointer' }} />
             </div>
           </form>
         </div>

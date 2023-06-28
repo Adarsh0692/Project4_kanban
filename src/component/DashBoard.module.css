@@ -12,7 +12,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    z-index: -1;
+    /* z-index: -1; */
 }
 
 .dash_div h1 {
@@ -27,7 +27,7 @@
     padding: 2rem 1rem;
     color: whitesmoke;
     display: flex;
-    z-index: 9999;
+    /* z-index: 9999; */
 
 }
 .dash_containor::-webkit-scrollbar{
@@ -58,7 +58,7 @@
     height: 90px;
     border-radius: 10px;
     padding: 10px 1rem;
-    z-index: 9999 !important;
+    /* z-index: 9999 !important; */
     /* margin-left: 20px; */
     /* margin-right: 10px; */
     /* position: sticky;
@@ -70,20 +70,20 @@
     padding: 10px 10px;
     font-size: large;
     border-radius: 5px;
-    z-index: auto;
+    /* z-index: auto; */
 }
 
 .crossbtn {
     margin: 10px 0;
     display: flex;
-    z-index: 9999;
+    /* z-index: 9999; */
 }
 
 .list_container {
     display: flex;
    margin-right: 20px;
     gap: 20px;
-    z-index: 9999;
+    /* z-index: 0; */
 }
 
 .list_card{

@@ -44,26 +44,13 @@ export default function DashBoard({ selectedImage }) {
   }
 
 
+ 
+
   const onDragEnd = (result) => {
-    const { destination, source, type} = result;
-    console.log(result);
-
-    if (!destination) {
-      return;
-    }
-    if(destination.droppableId === source.droppableId &&
-      destination.index === source.index 
-      ){
-        return;
-      }
-
-    dispatch(reorderList(result));
-
-      
-    
    
+      dispatch(reorderList(result));
+    
   };
-
  
 
   const getListStyle = () => ({
@@ -79,7 +66,7 @@ export default function DashBoard({ selectedImage }) {
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='list'  type="list">
             {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle()}>
+              <div {...provided.droppableProps} ref={provided.innerRef}>
                 <div className={style.dash_containor}>
                   <div className={style.list_container}>
                     {list.map((item, index) => (
@@ -110,7 +97,7 @@ export default function DashBoard({ selectedImage }) {
                                 </div>
                               </div>
                               <div>
-                                <Droppable droppableId={item.id.toString()} type="card">
+                              <Droppable droppableId={item.id.toString()} type="card">
                                   {(provided) => (
                                     <div {...provided.droppableProps} ref={provided.innerRef}>
                                       {item.task &&
